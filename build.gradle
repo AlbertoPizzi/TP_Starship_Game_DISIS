@@ -1,0 +1,47 @@
+plugins {
+    // Apply the application plugin to add support for building a CLI application in Java.
+    id 'java'
+    id 'application'
+    id 'org.openjfx.javafxplugin' version '0.0.10'
+}
+group 'org.example'
+version '1.0-SNAPSHOT'
+
+
+
+repositories {
+    // Use JCenter for resolving dependencies.
+    //jcenter()
+    mavenCentral()
+    maven {
+        url = uri("https://maven.pkg.github.com/austral-ingsis/starships-fx")
+        credentials {
+            username = System.getenv("GITHUB_USERNAME")
+            password = System.getenv("GITHUB_TOKEN")
+        }
+    }
+}
+
+dependencies {
+    // Use JUnit test framework.
+    testImplementation 'junit:junit:4.13.2'
+
+    // This dependency is used by the application.
+    implementation 'com.google.guava:guava:31.0.1-jre'
+    implementation 'edu.austral.dissis.starships:lib:1.1.0'
+    implementation group: 'org.jetbrains', name: 'annotations', version: '16.0.1'
+}
+
+javafx {
+    version = "17"
+    modules = [ 'javafx.controls' ]
+}
+
+application {
+    // Define the main class for the application.
+    mainClass = 'StarshipGame.App'
+}
+
+test {
+    useJUnitPlatform()
+}
